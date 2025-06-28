@@ -2,7 +2,7 @@ name: crab
 version: 0.1.0
 
 authors:
-  - Matthew Berry <me@mattrb.com>
+  - Matthew Beck <me@mattrb.com>
 
 targets:
   crab:
@@ -14,7 +14,7 @@ crystal: ">=1.5.1, < 2.0.0"
 
 dependencies:
   bitfield:
-    github: mattrberry/bitfield
+    github: mattrbeck/bitfield
     version: 0.2.0
   sdl:
     github: ysbaddaden/sdl.cr
@@ -24,7 +24,7 @@ dependencies:
     github: oprypin/crystal-imgui
     tag: v1.88
   imgui-backends:
-    github: mattrberry/crystal-imgui-backends
+    github: mattrbeck/crystal-imgui-backends
     tag: v1.88
 
 development_dependencies:

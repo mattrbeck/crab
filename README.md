@@ -2,7 +2,7 @@
 
 Crab is a Game Boy, Game Boy Color, and Game Boy Advance emulator written in Crystal. Game Boy and Game Boy Color emulation are very accurate, while Game Boy Advance is considered playable in many games.
 
-The Game Boy and Game Boy Color emulator come from my [CryBoy](https://github.com/mattrberry/CryBoy) project, which has been ported into this codebase to reduce common logic and bugs between the two. The one downside here is the longer build time thanks to Crystal's slow compilation in release mode.
+The Game Boy and Game Boy Color emulator come from my [CryBoy](https://github.com/mattrbeck/CryBoy) project, which has been ported into this codebase to reduce common logic and bugs between the two. The one downside here is the longer build time thanks to Crystal's slow compilation in release mode.
 
 The Game Boy and Game Boy Color work would not be possible without the [Pan Docs](https://gbdev.io/pandocs), [izik's opcode table](https://izik1.github.io/gbops), the [gbz80 opcode reference](https://rednex.github.io/rgbds/gbz80.7.html), [The Cycle-Accurate Game Boy Docs](https://github.com/AntonioND/giibiiadvance/blob/master/docs/TCAGBD.pdf), or gekkio's [Game Boy: Complete Technical Reference](https://gekkio.fi/files/gb-docs/gbctr.pdf). The Game Boy Advance work would not be possible without [GBATEK](http://problemkaputt.de/gbatek.htm), [Tonc](https://www.coranac.com/tonc), [mGBA](https://mgba.io/), or the wonderful emudev community.
 
@@ -113,7 +113,7 @@ A special thanks goes out to those in the emudev community who are always helpfu
 
 ## Contributing
 
-1. Fork it (<https://github.com/mattrberry/crab/fork>)
+1. Fork it (<https://github.com/mattrbeck/crab/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -121,4 +121,4 @@ A special thanks goes out to those in the emudev community who are always helpfu
 
 ## Contributors
 
-- [Matthew Berry](https://github.com/mattrberry) - creator and maintainer
+- [Matthew Beck](https://github.com/mattrbeck) - creator and maintainer
