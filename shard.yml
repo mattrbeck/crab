@@ -18,6 +18,7 @@ dependencies:
     version: 0.2.0
   sdl:
     github: ysbaddaden/sdl.cr
+    commit: a86f867
   lib_gl:
     github: nulldotpro/LibGL
   imgui:
@@ -25,7 +26,7 @@ dependencies:
     tag: v1.88
   imgui-backends:
     github: mattrbeck/crystal-imgui-backends
-    tag: v1.88
+    commit: ff12fa5
 
 development_dependencies:
   stumpy_png:
