@@ -14,12 +14,12 @@ module GBA
       @cycle_enabled = Slice(UInt64).new 4, 0               # cycle that the timer was enabled
       @events = Slice(Proc(Nil)).new 4 { |i| overflow i }   # overflow closures for each timer
       @interrupt_flags = Slice[
-        ->{ @gba.interrupts.reg_if.timer0 = true }, ->{ @gba.interrupts.reg_if.timer1 = true },
-        ->{ @gba.interrupts.reg_if.timer2 = true }, ->{ @gba.interrupts.reg_if.timer3 = true }]
+        -> { @gba.interrupts.reg_if.timer0 = true }, -> { @gba.interrupts.reg_if.timer1 = true },
+        -> { @gba.interrupts.reg_if.timer2 = true }, -> { @gba.interrupts.reg_if.timer3 = true }]
     end
 
     def overflow(num : Int) : Proc(Nil)
-      ->{
+      -> {
         @tm[num] = @tmd[num]
         @cycle_enabled[num] = @gba.scheduler.cycles
         if num < 3 && @tmcnt[num + 1].cascade && @tmcnt[num + 1].enable

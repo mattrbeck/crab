@@ -38,8 +38,8 @@ module GBA
       @src = Slice(UInt32).new 4, 0
       @dst = Slice(UInt32).new 4, 0
       @interrupt_flags = Slice[
-        ->{ @gba.interrupts.reg_if.dma0 = true }, ->{ @gba.interrupts.reg_if.dma1 = true },
-        ->{ @gba.interrupts.reg_if.dma2 = true }, ->{ @gba.interrupts.reg_if.dma3 = true }]
+        -> { @gba.interrupts.reg_if.dma0 = true }, -> { @gba.interrupts.reg_if.dma1 = true },
+        -> { @gba.interrupts.reg_if.dma2 = true }, -> { @gba.interrupts.reg_if.dma3 = true }]
     end
 
     def [](io_addr : UInt32) : UInt8

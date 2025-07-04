@@ -14,8 +14,8 @@ module GBA
 
     def initialize(@gba : GBA, @control : Reg::SOUNDCNT_H)
       @timers = Slice[
-        ->{ @control.dma_sound_a_timer },
-        ->{ @control.dma_sound_b_timer },
+        -> { @control.dma_sound_a_timer },
+        -> { @control.dma_sound_b_timer },
       ]
     end
 
