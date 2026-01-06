@@ -23,10 +23,10 @@ dependencies:
     github: nulldotpro/LibGL
   imgui:
     github: oprypin/crystal-imgui
-    tag: v1.88
+    tag: v1.90.6
   imgui-backends:
     github: mattrbeck/crystal-imgui-backends
-    tag: v1.88_1
+    tag: v1.90.6
 
 development_dependencies:
   stumpy_png:

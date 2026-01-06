@@ -190,7 +190,7 @@ class SDLOpenGLImGuiFrontend < Frontend
 
   private def render_imgui : Nil
     ImGui::OpenGL3.new_frame
-    ImGui::SDL2.new_frame(@window)
+    ImGui::SDL2.new_frame()
     ImGui.new_frame
 
     overlay_height = 10.0
