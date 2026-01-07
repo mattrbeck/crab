@@ -7,6 +7,9 @@ require "./controllers/*"
 require "./widgets/*"
 require "./shaders/*"
 
+MOD_KEY     = {% if flag?(:darwin) %} LibSDL::Keymod::LGUI {% else %} LibSDL::Keymod::LCTRL {% end %}
+MOD_KEY_STR = {% if flag?(:darwin) %} "Cmd" {% else %} "Ctrl" {% end %}
+
 class SDLOpenGLImGuiFrontend < Frontend
   CONTROLLERS    = [StubbedController, GBController, GBAController]
   ROM_EXTENSIONS = CONTROLLERS.reduce([] of String) { |acc, controller| acc + controller.extensions }
@@ -133,7 +136,7 @@ class SDLOpenGLImGuiFrontend < Frontend
         next if @io.want_capture_keyboard # let ImGui handle keyboard input when focused
         if @config_editor.keybindings.wants_input?
           @config_editor.keybindings.key_released(event.sym) unless event.pressed? # pass on key release
-        elsif event.mod.includes?(LibSDL::Keymod::LCTRL)
+        elsif event.mod.includes?(MOD_KEY)
           case event.sym
           when LibSDL::Keycode::R then reset
           when LibSDL::Keycode::P then pause(!@pause) unless event.pressed?
@@ -220,15 +223,15 @@ class SDLOpenGLImGuiFrontend < Frontend
           ImGui.separator
           @config_editor.open = true if ImGui.menu_item "Settings"
           ImGui.separator
-          exit if ImGui.menu_item "Exit", "Ctrl+Q"
+          exit if ImGui.menu_item "Exit", MOD_KEY_STR + "+Q"
         end
 
         ImGui.menu "Emulation" do
           should_reset = false
           pause = @pause
 
-          ImGui.menu_item "Reset", "Ctrl+R", pointerof(should_reset)
-          ImGui.menu_item "Pause", "Ctrl+P", pointerof(pause)
+          ImGui.menu_item "Reset", MOD_KEY_STR + "+R", pointerof(should_reset)
+          ImGui.menu_item "Pause", MOD_KEY_STR + "+P", pointerof(pause)
           @controller.toggle_sync if ImGui.menu_item "Audio Sync", "Tab", @controller.sync?, !stubbed?
 
           reset if should_reset
@@ -244,7 +247,7 @@ class SDLOpenGLImGuiFrontend < Frontend
               end
             end
             ImGui.separator
-            @window.fullscreen = @fullscreen if ImGui.menu_item "Fullscreen", "Ctrl+F", pointerof(@fullscreen)
+            @window.fullscreen = @fullscreen if ImGui.menu_item "Fullscreen", MOD_KEY_STR + "+F", pointerof(@fullscreen)
           end
         end
 
