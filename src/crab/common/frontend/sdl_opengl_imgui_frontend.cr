@@ -95,6 +95,12 @@ class SDLOpenGLImGuiFrontend < Frontend
     LibGL.clear_color(red / 255, green / 255, blue / 255, alpha / 255)
   end
 
+  private def reset : Nil
+    return if @controller.is_a? StubbedController
+    recent_rom = @config.recents.shift?
+    load_new_rom(recent_rom) if recent_rom
+  end
+
   def pause(b : Bool) : Nil
     if @pause != b
       @pause = b
@@ -102,7 +108,7 @@ class SDLOpenGLImGuiFrontend < Frontend
     end
   end
 
-  private def load_new_rom(rom : String?) : Nil
+  private def load_new_rom(rom : String) : Nil
     LibSDL.close_audio(1)
     @controller = init_controller(nil, rom, @config.run_bios)
 
@@ -129,6 +135,7 @@ class SDLOpenGLImGuiFrontend < Frontend
           @config_editor.keybindings.key_released(event.sym) unless event.pressed? # pass on key release
         elsif event.mod.includes?(LibSDL::Keymod::LCTRL)
           case event.sym
+          when LibSDL::Keycode::R then reset
           when LibSDL::Keycode::P then pause(!@pause) unless event.pressed?
           when LibSDL::Keycode::F then @window.fullscreen = (@fullscreen = !@fullscreen) unless event.pressed?
           when LibSDL::Keycode::Q then exit
@@ -190,7 +197,7 @@ class SDLOpenGLImGuiFrontend < Frontend
 
   private def render_imgui : Nil
     ImGui::OpenGL3.new_frame
-    ImGui::SDL2.new_frame()
+    ImGui::SDL2.new_frame
     ImGui.new_frame
 
     overlay_height = 10.0
@@ -217,11 +224,14 @@ class SDLOpenGLImGuiFrontend < Frontend
         end
 
         ImGui.menu "Emulation" do
+          should_reset = false
           pause = @pause
 
+          ImGui.menu_item "Reset", "Ctrl+R", pointerof(should_reset)
           ImGui.menu_item "Pause", "Ctrl+P", pointerof(pause)
           @controller.toggle_sync if ImGui.menu_item "Audio Sync", "Tab", @controller.sync?, !stubbed?
 
+          reset if should_reset
           pause(pause)
         end
 
