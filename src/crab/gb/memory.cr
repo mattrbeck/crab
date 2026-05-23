@@ -22,9 +22,9 @@ module GB
     @scheduler : Scheduler
     @cgb_ptr : Pointer(Bool)
 
-    @wram = Slice(Bytes).new 8 { Bytes.new GB::Memory::WORK_RAM_N.size }
+    @wram : Slice(Bytes)
     @wram_bank : UInt8 = 1
-    @hram = Bytes.new HRAM.size
+    @hram : Bytes
     @ff72 : UInt8 = 0x00
     @ff73 : UInt8 = 0x00
     @ff74 : UInt8 = 0x00
@@ -89,6 +89,8 @@ module GB
     end
 
     def initialize(@gb : GB)
+      @wram = Slice(Bytes).new 8 { Bytes.new WORK_RAM_N.size }
+      @hram = Bytes.new HRAM.size
       @cartridge = gb.cartridge
       @interrupts = gb.interrupts
       @ppu = gb.ppu

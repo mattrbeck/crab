@@ -14,11 +14,11 @@ module GBA
     @dispcnt = Reg::DISPCNT.new 0
     @dispstat = Reg::DISPSTAT.new 0
     @vcount : UInt16 = 0x0000_u16
-    @bgcnt = Slice(Reg::BGCNT).new 4 { GBA::Reg::BGCNT.new 0 }
-    @bghofs = Slice(Reg::BGOFS).new 4 { GBA::Reg::BGOFS.new 0 }
-    @bgvofs = Slice(Reg::BGOFS).new 4 { GBA::Reg::BGOFS.new 0 }
-    @bgaff = Slice(Slice(Reg::BGAFF)).new 2 { Slice(GBA::Reg::BGAFF).new 4 { GBA::Reg::BGAFF.new 0 } }
-    @bgref = Slice(Slice(Reg::BGREF)).new 2 { Slice(GBA::Reg::BGREF).new 2 { GBA::Reg::BGREF.new 0 } }
+    @bgcnt : Slice(Reg::BGCNT)
+    @bghofs : Slice(Reg::BGOFS)
+    @bgvofs : Slice(Reg::BGOFS)
+    @bgaff : Slice(Slice(Reg::BGAFF))
+    @bgref : Slice(Slice(Reg::BGREF))
     @bgref_int = Slice(Slice(Int32)).new 2 { Slice(Int32).new 2, 0 }
     @win0h = Reg::WINH.new 0
     @win1h = Reg::WINH.new 0
@@ -32,6 +32,11 @@ module GBA
     @bldy = Reg::BLDY.new 0
 
     def initialize(@gba : GBA)
+      @bgcnt = Slice(Reg::BGCNT).new 4 { Reg::BGCNT.new 0 }
+      @bghofs = Slice(Reg::BGOFS).new 4 { Reg::BGOFS.new 0 }
+      @bgvofs = Slice(Reg::BGOFS).new 4 { Reg::BGOFS.new 0 }
+      @bgaff = Slice(Slice(Reg::BGAFF)).new 2 { Slice(Reg::BGAFF).new 4 { Reg::BGAFF.new 0 } }
+      @bgref = Slice(Slice(Reg::BGREF)).new 2 { Slice(Reg::BGREF).new 2 { Reg::BGREF.new 0 } }
       start_line
     end
 

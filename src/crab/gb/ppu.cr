@@ -129,21 +129,21 @@ module GB
     @obj_palette_index : UInt8 = 0
     @obj_auto_increment = false
 
-    @vram = Slice(Bytes).new 2 { Bytes.new GB::Memory::VRAM.size } # 0x8000..0x9FFF
-    @vram_bank : UInt8 = 0                                         # track which bank is active
-    @sprite_table = Bytes.new Memory::OAM.size                     # 0xFE00..0xFE9F
-    @lcd_control : UInt8 = 0x00_u8                                 # 0xFF40
-    @lcd_status : UInt8 = 0x80_u8                                  # 0xFF41
-    @scy : UInt8 = 0x00_u8                                         # 0xFF42
-    @scx : UInt8 = 0x00_u8                                         # 0xFF43
-    @ly : UInt8 = 0x00_u8                                          # 0xFF44
-    @lyc : UInt8 = 0x00_u8                                         # 0xFF45
-    @dma : UInt8 = 0x00_u8                                         # 0xFF46
-    @bgp : Slice(UInt8) = Slice(UInt8).new 4, 0                    # 0xFF47
-    @obp0 : Slice(UInt8) = Slice(UInt8).new 4, 0                   # 0xFF48
-    @obp1 : Slice(UInt8) = Slice(UInt8).new 4, 0                   # 0xFF49
-    @wy : UInt8 = 0x00_u8                                          # 0xFF4A
-    @wx : UInt8 = 0x00_u8                                          # 0xFF4B
+    @vram : Slice(Bytes)                         # 0x8000..0x9FFF
+    @vram_bank : UInt8 = 0                       # track which bank is active
+    @sprite_table = Bytes.new Memory::OAM.size   # 0xFE00..0xFE9F
+    @lcd_control : UInt8 = 0x00_u8               # 0xFF40
+    @lcd_status : UInt8 = 0x80_u8                # 0xFF41
+    @scy : UInt8 = 0x00_u8                       # 0xFF42
+    @scx : UInt8 = 0x00_u8                       # 0xFF43
+    @ly : UInt8 = 0x00_u8                        # 0xFF44
+    @lyc : UInt8 = 0x00_u8                       # 0xFF45
+    @dma : UInt8 = 0x00_u8                       # 0xFF46
+    @bgp : Slice(UInt8) = Slice(UInt8).new 4, 0  # 0xFF47
+    @obp0 : Slice(UInt8) = Slice(UInt8).new 4, 0 # 0xFF48
+    @obp1 : Slice(UInt8) = Slice(UInt8).new 4, 0 # 0xFF49
+    @wy : UInt8 = 0x00_u8                        # 0xFF4A
+    @wx : UInt8 = 0x00_u8                        # 0xFF4B
 
     # At some point, wy _must_ equal ly to enable the window
     @window_trigger = false
@@ -167,6 +167,7 @@ module GB
     @cycle_counter : Int32 = 0
 
     def initialize(@gb : GB)
+      @vram = Slice(Bytes).new 2 { Bytes.new Memory::VRAM.size }
       @cgb_ptr = gb.cgb_ptr
       unless @cgb_ptr.value # fill default color palettes
         @pram.to_unsafe.as(UInt16*)[0] = @obj_pram.to_unsafe.as(UInt16*)[0] = @obj_pram.to_unsafe.as(UInt16*)[4] = DMG_COLORS[0]
